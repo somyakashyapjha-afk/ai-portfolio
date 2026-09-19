@@ -1,0 +1,1941 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #080808;
+  color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+  min-height: 100vh;
+  background: #080808;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 22px 8%;
+
+  background: rgba(8, 8, 8, 0.95);
+  border-bottom: 1px solid #222222;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 42px;
+}
+
+.nav-links a {
+  color: #bdbdbd;
+  font-size: 18px;
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #8b5cf6;
+}
+
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
+.hero {
+  min-height: 88vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 80px 8%;
+}
+
+.hero-content {
+  max-width: 1000px;
+}
+
+
+/* Small "Hi, I'm" text */
+
+.hero-greeting {
+  font-size: 28px;
+  color: #d0d0d0;
+  margin-bottom: 12px;
+}
+
+
+/* IMPORTANT:
+   This fixes the invisible Somya Kashyap text
+*/
+
+.hero h1 {
+  color: #ffffff;
+
+  font-size: clamp(48px, 7vw, 82px);
+  font-weight: 700;
+
+  line-height: 1.1;
+
+  margin-bottom: 20px;
+}
+
+
+/* Main job title */
+
+.hero h2 {
+  color: #8b5cf6;
+
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 700;
+
+  margin-bottom: 24px;
+}
+
+
+/* Hero description */
+
+.hero p {
+  max-width: 950px;
+
+  margin: 0 auto 35px;
+
+  font-size: 22px;
+  line-height: 1.7;
+
+  color: #c7c7c7;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+   ========================================================= */
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+
+  margin-top: 28px;
+}
+
+.hero-buttons a {
+  text-decoration: none;
+}
+
+.hero-buttons button {
+  min-width: 180px;
+}
+
+.secondary-button {
+  background: transparent !important;
+  color: #ffffff !important;
+
+  border: 1px solid #333333 !important;
+}
+
+.secondary-button:hover {
+  border-color: #8b5cf6 !important;
+  color: #8b5cf6 !important;
+}
+
+
+/* =========================================================
+   HERO TECH TAGLINE
+   ========================================================= */
+
+.hero-tags {
+  margin-top: 18px !important;
+  margin-bottom: 18px !important;
+
+  font-size: 15px !important;
+
+  letter-spacing: 0.5px;
+
+  color: #8b5cf6 !important;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.primary-button {
+  display: inline-block;
+
+  padding: 16px 30px;
+
+  border-radius: 10px;
+
+  background: #8b5cf6;
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  border: none;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.primary-button:hover {
+  background: #7445e8;
+  transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+   ========================================================= */
+
+.section {
+  padding: 110px 8%;
+
+  max-width: 1200px;
+
+  margin: 0 auto;
+}
+
+.section-label {
+  color: #8b5cf6;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 15px;
+}
+
+.section h2 {
+  font-size: 42px;
+
+  margin-bottom: 20px;
+
+  color: #ffffff;
+}
+
+.section-text {
+  color: #bdbdbd;
+
+  font-size: 18px;
+  line-height: 1.7;
+
+  max-width: 800px;
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about-content {
+  max-width: 900px;
+}
+
+.about-content p {
+  color: #c7c7c7;
+
+  font-size: 18px;
+  line-height: 1.8;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 15px;
+
+  margin-top: 35px;
+}
+
+.skill {
+  padding: 12px 20px;
+
+  border: 1px solid #333333;
+
+  border-radius: 30px;
+
+  color: #dddddd;
+
+  background: #111111;
+
+  transition: 0.3s ease;
+}
+
+.skill:hover {
+  border-color: #8b5cf6;
+
+  color: #ffffff;
+
+  transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+.projects-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+
+  margin-top: 40px;
+}
+
+.project-card {
+  padding: 30px;
+
+  background: #111111;
+
+  border: 1px solid #242424;
+
+  border-radius: 16px;
+
+  transition: 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-7px);
+
+  border-color: #8b5cf6;
+
+  box-shadow:
+    0 15px 40px rgba(139, 92, 246, 0.12);
+}
+
+.project-card h3 {
+  font-size: 24px;
+
+  color: #ffffff;
+
+  margin-bottom: 15px;
+}
+
+.project-card p {
+  color: #bdbdbd;
+
+  line-height: 1.7;
+
+  margin-bottom: 20px;
+}
+
+.project-tech {
+  color: #8b5cf6;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   EXPERIENCE
+   ========================================================= */
+
+.experience-card {
+  padding: 30px;
+
+  margin-top: 35px;
+
+  background: #111111;
+
+  border: 1px solid #242424;
+
+  border-radius: 16px;
+}
+
+.experience-card h3 {
+  font-size: 25px;
+
+  color: #ffffff;
+
+  margin-bottom: 8px;
+}
+
+.experience-card h4 {
+  color: #8b5cf6;
+
+  margin-bottom: 15px;
+}
+
+.experience-card p {
+  color: #bdbdbd;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   AI ASSISTANT
+   ========================================================= */
+
+.ai-section {
+  max-width: 1100px;
+}
+
+.chat-box {
+  margin-top: 40px;
+
+  padding: 25px;
+
+  background: #101010;
+
+  border: 1px solid #282828;
+
+  border-radius: 18px;
+
+  min-height: 250px;
+}
+
+.chat-message {
+  padding: 18px 20px;
+
+  margin-bottom: 15px;
+
+  border-radius: 12px;
+
+  line-height: 1.6;
+}
+
+.ai-message {
+  background: #191919;
+
+  border: 1px solid #292929;
+
+  color: #dddddd;
+}
+
+.ai-message strong {
+  color: #8b5cf6;
+}
+
+.ai-message p {
+  margin-top: 7px;
+
+  color: #cfcfcf;
+}
+
+.user-message {
+  background: #17111f;
+
+  border: 1px solid #352451;
+
+  color: #ffffff;
+
+  margin-left: 10%;
+}
+
+.user-message strong {
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   CHAT INPUT
+   ========================================================= */
+
+.chat-input-area {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.chat-input-area input {
+  flex: 1;
+
+  padding: 16px 18px;
+
+  background: #0b0b0b;
+
+  border: 1px solid #333333;
+
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-size: 16px;
+
+  outline: none;
+}
+
+.chat-input-area input:focus {
+  border-color: #8b5cf6;
+}
+
+.chat-input-area input::placeholder {
+  color: #777777;
+}
+
+.chat-input-area button {
+  padding: 15px 25px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #8b5cf6;
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.chat-input-area button:hover {
+  background: #7445e8;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact-container {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 30px;
+
+  margin-top: 40px;
+}
+
+.contact-card {
+  padding: 30px;
+
+  background: #111111;
+
+  border: 1px solid #242424;
+
+  border-radius: 16px;
+}
+
+.contact-card h3 {
+  margin-bottom: 15px;
+
+  color: #ffffff;
+}
+
+.contact-card p {
+  color: #bdbdbd;
+
+  line-height: 1.7;
+}
+
+.contact-card a {
+  color: #8b5cf6;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  padding: 40px 8%;
+
+  text-align: center;
+
+  border-top: 1px solid #222222;
+
+  color: #777777;
+}
+
+.footer p {
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .navbar {
+    padding: 20px 5%;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+  }
+
+  .hero {
+    padding: 70px 5%;
+  }
+
+  .hero h1 {
+    font-size: 55px;
+  }
+
+  .hero h2 {
+    font-size: 34px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .section {
+    padding: 80px 5%;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .navbar {
+    flex-direction: column;
+
+    gap: 20px;
+
+    padding: 18px 5%;
+  }
+
+  .logo {
+    font-size: 28px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 15px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+  }
+
+  .hero {
+    min-height: 80vh;
+
+    padding: 60px 5%;
+  }
+
+  .hero-greeting {
+    font-size: 22px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero h2 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 17px;
+
+    line-height: 1.6;
+  }
+
+  .section h2 {
+    font-size: 34px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-input-area {
+    flex-direction: column;
+  }
+
+  .chat-input-area button {
+    width: 100%;
+  }
+
+  .user-message {
+    margin-left: 0;
+  }
+
+  .education-card {
+  padding: 25px;
+}
+
+.education-header {
+  flex-direction: column;
+  gap: 15px;
+}
+
+.education-header h3 {
+  font-size: 24px;
+}
+
+.education-details {
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+}
+
+
+/* =========================================================
+   HERO MOBILE BUTTONS
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .hero-buttons {
+    flex-direction: column;
+
+    width: 100%;
+
+    gap: 12px;
+  }
+
+  .hero-buttons button {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+  .hero-tags {
+    font-size: 13px !important;
+
+    line-height: 1.6;
+
+    padding: 0 15px;
+  }
+
+}
+
+
+/* =========================================================
+   FLOATING AI BUTTON
+   ========================================================= */
+
+.floating-ai-button {
+  position: fixed;
+
+  right: 25px;
+  bottom: 25px;
+
+  z-index: 2000;
+
+  padding: 14px 20px;
+
+  border: none;
+
+  border-radius: 30px;
+
+  background: #8b5cf6;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.4);
+
+  transition: all 0.3s ease;
+}
+
+.floating-ai-button:hover {
+  transform: translateY(-3px);
+
+  background: #7445e8;
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================================================
+   FLOATING CHAT WINDOW
+   ========================================================= */
+
+.floating-chat {
+  position: fixed;
+
+  right: 25px;
+  bottom: 85px;
+
+  width: 380px;
+  height: 520px;
+
+  z-index: 1999;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: #111111;
+
+  border: 1px solid #292929;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================================================
+   CHAT HEADER
+   ========================================================= */
+
+.floating-chat-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 18px;
+
+  border-bottom: 1px solid #292929;
+}
+
+.floating-chat-header strong {
+  color: white;
+
+  font-size: 16px;
+}
+
+.floating-chat-header p {
+  margin-top: 5px;
+
+  color: #888888;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.close-chat {
+  width: 32px;
+  height: 32px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: #aaaaaa;
+
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+.close-chat:hover {
+  background: #222222;
+
+  color: white;
+}
+
+
+/* =========================================================
+   CHAT MESSAGES
+   ========================================================= */
+
+.floating-chat-messages {
+  flex: 1;
+
+  padding: 18px;
+
+  overflow-y: auto;
+}
+
+.floating-chat .chat-message {
+  max-width: 85%;
+
+  padding: 12px 14px;
+
+  margin-bottom: 12px;
+
+  border-radius: 12px;
+
+  line-height: 1.5;
+}
+
+.floating-chat .chat-message p {
+  margin-top: 6px;
+}
+
+
+/* =========================================================
+   AI MESSAGE
+   ========================================================= */
+
+.floating-chat .ai-message {
+  background: #202020;
+
+  color: white;
+}
+
+
+/* =========================================================
+   USER MESSAGE
+   ========================================================= */
+
+.floating-chat .user-message {
+  margin-left: auto;
+
+  background: #8b5cf6;
+
+  color: white;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.floating-chat-input {
+  display: flex;
+
+  gap: 8px;
+
+  padding: 14px;
+
+  border-top: 1px solid #292929;
+}
+
+.floating-chat-input input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 12px;
+
+  background: #0a0a0a;
+
+  border: 1px solid #333333;
+
+  border-radius: 8px;
+
+  color: white;
+
+  outline: none;
+}
+
+.floating-chat-input input:focus {
+  border-color: #8b5cf6;
+}
+
+
+/* =========================================================
+   SEND BUTTON
+   ========================================================= */
+
+.floating-chat-input button {
+  background: #8b5cf6;
+
+  color: #ffffff;
+
+  border: none;
+
+  border-radius: 8px;
+
+  padding: 10px 16px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.floating-chat-input button:hover {
+  transform: translateY(-1px);
+
+  opacity: 0.9;
+}
+
+.floating-chat-input button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   AI SUGGESTED QUESTIONS
+   ========================================================= */
+
+.chat-welcome {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.suggested-title {
+  margin: 14px 0 8px;
+
+  font-size: 12px;
+
+  color: #888888;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  font-weight: 600;
+}
+
+.suggested-questions {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.suggested-questions button {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  background: #111111;
+
+  color: #dddddd;
+
+  border: 1px solid #2d2d2d;
+
+  border-radius: 8px;
+
+  text-align: left;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.suggested-questions button:hover {
+  border-color: #8b5cf6;
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   FLOATING CHAT MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .floating-chat {
+    right: 15px;
+
+    bottom: 80px;
+
+    width: calc(100% - 30px);
+
+    height: 70vh;
+  }
+
+  .floating-ai-button {
+    right: 15px;
+
+    bottom: 15px;
+  }
+
+}
+/* =========================
+   AI CHAT SUGGESTIONS
+========================= */
+
+
+
+.chat-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.suggestions-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  margin: 0 0 4px 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chat-suggestions button {
+  width: 100%;
+  padding: 10px 12px;
+
+  background: #f7f7f8;
+  color: #333;
+
+  border: 1px solid #e5e5e7;
+  border-radius: 10px;
+
+  font-size: 13px;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.chat-suggestions button:hover {
+  background: #f0ebff;
+  border-color: #8b5cf6;
+  transform: translateY(-1px);
+}
+
+.chat-suggestions button:active {
+  transform: translateY(0);
+}
+/* =========================
+   AI TYPING ANIMATION
+========================= */
+
+/* =========================
+   AI TYPING INDICATOR
+========================= */
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: #8b5cf6;
+  border-radius: 50%;
+
+  animation: typing 1.2s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+/* =========================
+   CHAT HEADER ACTIONS
+========================= */
+
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.new-chat-button {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: #777;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.new-chat-button:hover {
+  background: #f3f3f3;
+  color: #8b5cf6;
+  transform: rotate(-20deg);
+}
+/* =========================
+   EDUCATION
+========================= */
+
+.education-section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.education-card {
+  margin-top: 50px;
+  border: 1px solid #292929;
+  border-radius: 20px;
+  padding: 40px;
+  background: #111111;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.education-card:hover {
+  transform: translateY(-4px);
+  border-color: #8b5cf6;
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.education-type {
+  color: #8b5cf6;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.education-header h3 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.education-university {
+  color: #aaaaaa;
+  font-size: 17px;
+}
+
+.education-date {
+  color: #aaaaaa;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.education-divider {
+  height: 1px;
+  background: #292929;
+  margin: 32px 0;
+}
+
+.education-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.education-detail-label {
+  display: block;
+  color: #777777;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.education-details p {
+  color: #dddddd;
+  font-size: 15px;
+  line-height: 1.6;
+}
+/* =========================
+   CERTIFICATIONS
+========================= */
+
+.achievements-section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.certificate-card {
+  position: relative;
+  padding: 32px;
+  min-height: 300px;
+
+  border: 1px solid #292929;
+  border-radius: 18px;
+
+  background: #111111;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.certificate-card:hover {
+  transform: translateY(-5px);
+  border-color: #8b5cf6;
+}
+
+.certificate-number {
+  color: #8b5cf6;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.certificate-type {
+  color: #8b5cf6;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.certificate-content h3 {
+  font-size: 23px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.certificate-issuer {
+  color: #dddddd;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.certificate-description {
+  color: #999999;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.certificate-year {
+  display: inline-block;
+  margin-top: 25px;
+
+  color: #777777;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-card {
+    padding: 25px;
+    min-height: auto;
+  }
+
+}
+/* =========================
+   SKILLS CATEGORIES
+========================= */
+
+.skills-categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.skill-category {
+  padding: 30px;
+
+  border: 1px solid #292929;
+  border-radius: 18px;
+
+  background: #111111;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.skill-category:hover {
+  transform: translateY(-4px);
+  border-color: #8b5cf6;
+}
+
+.skill-category-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.skill-category-number {
+  color: #8b5cf6;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.skill-category-header h3 {
+  font-size: 21px;
+  margin: 0;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tags span {
+  display: inline-block;
+
+  padding: 8px 13px;
+
+  border: 1px solid #333333;
+  border-radius: 8px;
+
+  color: #dddddd;
+
+  font-size: 14px;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.skill-tags span:hover {
+  border-color: #8b5cf6;
+  color: #ffffff;
+}
+
+
+/* =========================
+   SKILLS — MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .skills-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-category {
+    padding: 25px;
+  }
+
+}
+  /* =========================
+     DAY 6 — MOBILE NAVIGATION
+  ========================= */
+
+  .navbar {
+    padding: 18px 20px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  .nav-links a::after {
+    bottom: -4px;
+  }
+/* =========================
+   PROJECT DETAILS
+========================= */
+
+.project-details {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  animation: projectDetailsIn 0.25s ease;
+}
+
+.project-detail-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-detail-block h4 {
+  margin: 0;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #8b5cf6;
+}
+
+.project-detail-block p {
+  margin: 0;
+
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #b8b8c2;
+}
+
+.project-detail-block ul {
+  margin: 0;
+  padding-left: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.project-detail-block li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #b8b8c2;
+}
+
+.project-detail-block li::marker {
+  color: #8b5cf6;
+}
+
+@keyframes projectDetailsIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* =========================
+   SCROLL ANIMATIONS
+========================= */
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(35px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.animate-on-scroll.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* =========================
+   CERTIFICATE CARDS
+========================= */
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.certificate-card {
+  background: #111111;
+  border: 1px solid #292929;
+  border-radius: 16px;
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.certificate-card:hover {
+  transform: translateY(-8px);
+  border-color: #8b5cf6;
+  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.15);
+}
+
+.certificate-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.certificate-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  transition: transform 0.4s ease;
+}
+
+.certificate-card:hover .certificate-image img {
+  transform: scale(1.04);
+}
+
+.certificate-info {
+  padding: 24px;
+}
+
+.certificate-type {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #8b5cf6;
+  margin-bottom: 10px;
+}
+
+.certificate-info h3 {
+  font-size: 21px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.certificate-info p {
+  color: #b5b5b5;
+  margin-bottom: 8px;
+}
+
+.certificate-info span {
+  font-size: 14px;
+  color: #777777;
+}
+
+
+/* =========================
+   CERTIFICATE SCROLL DELAY
+========================= */
+
+.certificate-card:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+.certificate-card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-image {
+    height: 240px;
+  }
+
+}
+/* =========================
+   DAY 6 — MICRO INTERACTIONS
+========================= */
+
+/* Project cards */
+.project-card {
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: #8b5cf6;
+  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.12);
+}
+
+
+/* Buttons */
+.project-button,
+.hero-buttons button,
+.contact-link {
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.project-button:hover,
+.hero-buttons button:hover,
+.contact-link:hover {
+  transform: translateY(-2px);
+}
+
+
+/* Navigation links */
+.nav-links a {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+
+  width: 0;
+  height: 2px;
+
+  background: #8b5cf6;
+
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+
+/* Skill tags */
+.skills span {
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.skills span:hover {
+  transform: translateY(-3px);
+  border-color: #8b5cf6;
+}
+
+
+/* Resume button */
+.secondary-button {
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* AI floating button */
+.floating-ai-button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.floating-ai-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25);
+}
+
+
+/* Chat buttons */
+.chat-suggestions button,
+.floating-chat-input button,
+.new-chat-button,
+.close-chat {
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background 0.2s ease;
+}
+
+.chat-suggestions button:hover,
+.floating-chat-input button:hover {
+  transform: translateY(-1px);
+}
+
+.new-chat-button:hover,
+.close-chat:hover {
+  transform: scale(1.08);
+}
+/* =========================
+   DAY 6 — ACCESSIBILITY
+========================= */
+
+/* Visible keyboard focus */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 3px;
+}
+
+
+/* Better keyboard interaction for buttons */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* Improve text selection */
+::selection {
+  background: #8b5cf6;
+  color: #ffffff;
+}
+
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
