@@ -1,5 +1,6 @@
 import { useState ,useEffect} from "react";
 import "./App.css";
+const API_URL = "https://somya-ai-portfolio-api.onrender.com";
 
 function App() {
     useEffect(() => {
@@ -63,12 +64,12 @@ function App() {
     setQuestion("");
     setLoading(true);
 
-    fetch("https://somya-ai-portfolio-api.onrender.com/", {
-      method: "POST",
+    fetch("https://somya-ai-portfolio-api.onrender.com/chat", {
+  method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+  headers: {
+    "Content-Type": "application/json",
+  },
 
       body: JSON.stringify({
         question: suggestedQuestion,
