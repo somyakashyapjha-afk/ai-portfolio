@@ -1,7 +1,10 @@
+
 import os
-import json
+from pathlib import Path
 
 from dotenv import load_dotenv
+from backend.retriever import retrieve_context
+
 from groq import Groq
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,22 +12,16 @@ from pydantic import BaseModel
 
 
 # -----------------------------------
-# 1. Load candidate information
+# 1. Paths and environment
 # -----------------------------------
 
-with open("../candidate.json", "r") as file:
-    candidate = json.load(file)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# -----------------------------------
-# 2. Load environment variables
-# -----------------------------------
-
-load_dotenv()
+load_dotenv(BASE_DIR / ".env")
 
 
 # -----------------------------------
-# 3. Connect to Groq
+# 2. Connect to Groq
 # -----------------------------------
 
 client = Groq(
@@ -33,10 +30,15 @@ client = Groq(
 
 
 # -----------------------------------
-# 4. Create FastAPI application
+# 3. Create FastAPI application
 # -----------------------------------
 
 app = FastAPI()
+
+
+# -----------------------------------
+# 4. CORS
+# -----------------------------------
 
 app.add_middleware(
     CORSMiddleware,
@@ -48,7 +50,7 @@ app.add_middleware(
 
 
 # -----------------------------------
-# 5. Define the data we receive
+# 5. Request model
 # -----------------------------------
 
 class ChatRequest(BaseModel):
@@ -56,42 +58,67 @@ class ChatRequest(BaseModel):
 
 
 # -----------------------------------
-# 6. Create our /chat endpoint
+# 6. Chat endpoint
 # -----------------------------------
 
 @app.post("/chat")
 def chat(request: ChatRequest):
 
+    # Get user's question
+    user_question = request.question
+
+
+    # Retrieve relevant context
+    retrieval = retrieve_context(
+        user_question,
+        n_results=2
+    )
+
+    context = retrieval["context"]
+
+
+    # Build RAG prompt
     messages = [
         {
             "role": "system",
             "content": f"""
 You are the AI assistant for Somya Kashyap's developer portfolio.
 
-Use the following candidate information to answer questions:
+Use the retrieved portfolio context below to answer
+the user's question.
 
-{candidate}
+Retrieved portfolio context:
+
+{context}
 
 Rules:
-- Only use the information provided above.
-- Do not invent skills, projects, experience, or achievements.
-- If the information is not available, say that you don't have that information.
+- Use the retrieved context as your primary source.
+- Do not invent skills, projects, experience, academics,
+  certifications, or achievements.
+- If the requested information is not available in the
+  retrieved context, say that you don't have that information.
 - Answer clearly and professionally.
 """
         },
         {
             "role": "user",
-            "content": request.question
+            "content": user_question
         }
     ]
 
+
+    # Send context + question to Groq
     response = client.chat.completions.create(
         model="openai/gpt-oss-120b",
         messages=messages
     )
 
+
+    # Get AI response
     answer = response.choices[0].message.content
 
+
+    # Return answer
     return {
         "answer": answer
     }

@@ -1,0 +1,30 @@
+{
+  "skills": {
+    "programming_languages": [
+      "C++",
+      "Python",
+      "JavaScript",
+      "SQL"
+    ],
+    "web_development": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "backend": [
+      "FastAPI"
+    ],
+    "data_and_ai": [
+      "Python",
+      "NumPy",
+      "Pandas",
+      "Machine Learning",
+      "RAG"
+    ],
+    "tools": [
+      "Git",
+      "GitHub",
+      "Power BI"
+    ]
+  }
+}

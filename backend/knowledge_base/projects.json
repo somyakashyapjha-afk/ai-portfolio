@@ -1,0 +1,84 @@
+{
+  "projects": [
+    {
+      "name": "Amazon Copilot",
+      "description": "An AI-powered product review analysis and insight generation project.",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "RAG",
+        "LLM"
+      ],
+      "focus": [
+        "AI",
+        "Natural Language Processing",
+        "Retrieval-Augmented Generation"
+      ],
+      "details": "Amazon Copilot is designed to analyze product reviews and generate useful insights using an AI-powered workflow. The project uses a FastAPI backend and RAG-based architecture.",
+      "github": "",
+      "live_demo": ""
+    },
+    {
+      "name": "Campus Sustainability Dashboard",
+      "description": "A data analysis and visualization project for monitoring campus sustainability metrics.",
+      "technologies": [
+        "Python",
+        "Pandas",
+        "NumPy",
+        "Machine Learning",
+        "Power BI"
+      ],
+      "focus": [
+        "Data Analysis",
+        "Data Visualization",
+        "Machine Learning",
+        "Sustainability Analytics"
+      ],
+      "details": "The project analyzes campus sustainability data including water consumption, energy usage, waste generation, recycling rates and related metrics. Python-based data analysis and machine learning were used alongside Power BI for visualization.",
+      "github": "",
+      "live_demo": ""
+    },
+    {
+      "name": "Flipkart GRIDLOCK",
+      "description": "A traffic optimization project exploring machine learning approaches for improving traffic signal management.",
+      "technologies": [
+        "Python",
+        "Machine Learning"
+      ],
+      "focus": [
+        "Machine Learning",
+        "Traffic Optimization",
+        "Smart Transportation"
+      ],
+      "details": "Flipkart GRIDLOCK explores the use of machine learning to analyze traffic patterns and support improved traffic signal management and optimization.",
+      "github": "",
+      "live_demo": ""
+    },
+    {
+      "name": "AI Portfolio",
+      "description": "A production-deployed AI-powered developer portfolio with a React frontend, FastAPI backend and LLM-powered AI assistant.",
+      "technologies": [
+        "React",
+        "Vite",
+        "Python",
+        "FastAPI",
+        "RAG",
+        "LLM",
+        "Groq",
+        "Git",
+        "GitHub",
+        "Render"
+      ],
+      "focus": [
+        "Full-Stack Development",
+        "AI Engineering",
+        "RAG",
+        "LLM Integration",
+        "Production Deployment"
+      ],
+      "details": "The AI Portfolio is a full-stack developer portfolio featuring a React and Vite frontend, a FastAPI backend and an AI assistant powered by an LLM. The application has been deployed to production with the frontend and backend connected through a production API.",
+      "github": "https://github.com/somyakashyapjha-afk/ai-portfolio",
+      "live_demo": ""
+    }
+  ]
+}
