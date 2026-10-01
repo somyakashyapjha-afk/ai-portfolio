@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
-const API_URL = "https://somya-ai-portfolio-api.onrender.com";
-
+const API_URL = "https://somya-ai-portfolio-api-v2.onrender.com";
 function App() {
 
   // =========================
