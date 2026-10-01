@@ -1,28 +1,50 @@
-from retriever import retrieve_context, detect_filter_type
+from retriever import retrieve_context
 
 
-queries = [
+# ============================================================
+# DAY 19 — RETRIEVAL QUALITY TEST
+# ============================================================
+
+test_questions = [
+    "What are Somya's technical skills?",
     "Tell me about Amazon Copilot",
-    "What programming languages does Somya know?",
-    "Where does Somya study?",
-    "Tell me about Somya's background",
     "What experience does Somya have?",
-    "What certifications does Somya have?"
+    "Tell me about her education",
+    "What is Somya's favorite food?",
+    "Explain quantum mechanics",
 ]
 
 
-for question in queries:
+print("\n==============================")
+print("DAY 19 — RETRIEVAL TEST")
+print("==============================")
 
-    detected_type = detect_filter_type(question)
 
-    print("\n" + "=" * 60)
-    print("QUESTION:", question)
-    print("DETECTED TYPE:", detected_type)
-    print("=" * 60)
+for question in test_questions:
 
     result = retrieve_context(
         question,
         n_results=2
     )
 
-    print(result)
+    print("\nQUESTION:")
+    print(question)
+
+    print("\nFILTER:")
+    print(result["filter_type"])
+
+    print("\nDISTANCES:")
+    print(result["distances"])
+
+    print("\nSOURCES:")
+    print(result["sources"])
+
+    print("\nCONTEXT FOUND:")
+    print("YES" if result["context"] else "NO")
+
+    print("\n------------------------------")
+
+
+print("\n==============================")
+print("TEST COMPLETED")
+print("==============================")

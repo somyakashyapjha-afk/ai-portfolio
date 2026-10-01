@@ -134,7 +134,7 @@ def chat(request: ChatRequest):
 
 
     # --------------------------------------------------------
-    # STEP 4 — GET RETRIEVED INFORMATION
+    # STEP 4 — GET RETRIEVED CONTEXT
     # --------------------------------------------------------
 
     context = retrieval.get(
@@ -142,75 +142,15 @@ def chat(request: ChatRequest):
         ""
     )
 
-    documents = retrieval.get(
-        "documents",
-        []
-    )
 
-    distances = retrieval.get(
-        "distances",
-        []
-    )
+    # --------------------------------------------------------
+    # STEP 5 — HANDLE NO RELEVANT RETRIEVAL
+    # --------------------------------------------------------
 
-    metadatas = retrieval.get(
-        "metadatas",
-        []
-    )
-
-    filter_type = retrieval.get(
-        "filter_type",
-        None
-    )
-
-
-    # ========================================================
-    # RETRIEVAL DEBUGGING
-    # ========================================================
-
-    print("\n==============================")
-
-    print("USER QUESTION:")
-    print(user_question)
-
-    print("\nFILTER TYPE:")
-    print(filter_type)
-
-    print("\nRETRIEVED DOCUMENTS:")
-
-    if documents:
-
-        for i, document in enumerate(documents):
-
-            print(f"\nDocument {i + 1}:")
-            print(document)
-
-    else:
-
-        print("No documents returned.")
-
-
-    print("\nDISTANCES:")
-    print(distances)
-
-
-    print("\nMETADATA:")
-    print(metadatas)
-
-
-    print("==============================\n")
-
-
-    # ========================================================
-    # STEP 5 — HANDLE EMPTY RETRIEVAL
-    # ========================================================
-
-    if not documents:
+    if not context:
 
         return {
-            "answer": (
-                "I’m sorry, but I don’t have enough relevant "
-                "information about that in Somya’s portfolio."
-            )
+            "answer": "The portfolio doesn't contain that information."
         }
 
 
@@ -430,17 +370,7 @@ END OF RETRIEVED CONTEXT
 
 
     # ========================================================
-    # STEP 11 — PRINT ANSWER FOR DEBUGGING
-    # ========================================================
-
-    print("AI ANSWER:")
-    print(answer)
-
-    print("==============================\n")
-
-
-    # ========================================================
-    # STEP 12 — RETURN RESPONSE
+    # STEP 11 — RETURN RESPONSE
     # ========================================================
 
     return {
