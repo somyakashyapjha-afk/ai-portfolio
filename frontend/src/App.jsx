@@ -1,18 +1,61 @@
-import { useState ,useEffect} from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
+
 const API_URL = "https://somya-ai-portfolio-api.onrender.com";
 
 function App() {
-    useEffect(() => {
-    const sections = document.querySelectorAll(".animate-on-scroll");
+
+  // =========================
+  // MOBILE MENU
+  // =========================
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // =========================
+  // CHAT STATES
+  // =========================
+
+  const [question, setQuestion] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+
+  const [error, setError] = useState("");
+  const [lastQuestion, setLastQuestion] = useState("");
+
+  // =========================
+  // PROJECT STATES
+  // =========================
+
+  const [expandedProject, setExpandedProject] = useState(null);
+
+  // =========================
+  // CHAT AUTO SCROLL
+  // =========================
+
+  const messagesEndRef = useRef(null);
+
+  // =========================
+  // SCROLL ANIMATION
+  // =========================
+
+  useEffect(() => {
+
+    const sections = document.querySelectorAll(
+      ".animate-on-scroll"
+    );
 
     const observer = new IntersectionObserver(
       (entries) => {
+
         entries.forEach((entry) => {
+
           if (entry.isIntersecting) {
             entry.target.classList.add("show");
           }
+
         });
+
       },
       {
         threshold: 0.15,
@@ -24,26 +67,51 @@ function App() {
     });
 
     return () => {
+
       sections.forEach((section) => {
         observer.unobserve(section);
       });
-    };
-  }, []);
-  const [question, setQuestion] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
 
-  const [expandedProject, setExpandedProject] = useState(null);
+    };
+
+  }, []);
+
+  // =========================
+  // AUTO SCROLL CHAT
+  // =========================
+
+  useEffect(() => {
+
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+
+  }, [messages, loading]);
+
+  // =========================
+  // TOGGLE PROJECT DETAILS
+  // =========================
+
+  const toggleProject = (projectNumber) => {
+
+    setExpandedProject(
+      expandedProject === projectNumber
+        ? null
+        : projectNumber
+    );
+
+  };
 
   // =========================
   // CLEAR CHAT
   // =========================
 
   const clearChat = () => {
+
     setMessages([]);
     setQuestion("");
     setLoading(false);
+
   };
 
   // =========================
@@ -51,6 +119,7 @@ function App() {
   // =========================
 
   const askSuggestedQuestion = (suggestedQuestion) => {
+
     const userMessage = {
       role: "user",
       content: suggestedQuestion,
@@ -64,25 +133,30 @@ function App() {
     setQuestion("");
     setLoading(true);
 
-    fetch("https://somya-ai-portfolio-api.onrender.com/chat", {
-  method: "POST",
+    fetch(`${API_URL}/chat`, {
+      method: "POST",
 
-  headers: {
-    "Content-Type": "application/json",
-  },
+      headers: {
+        "Content-Type": "application/json",
+      },
 
       body: JSON.stringify({
         question: suggestedQuestion,
       }),
     })
+
       .then((response) => {
+
         if (!response.ok) {
           throw new Error("Server error");
         }
 
         return response.json();
+
       })
+
       .then((data) => {
+
         const aiMessage = {
           role: "ai",
           content: data.answer,
@@ -92,8 +166,11 @@ function App() {
           ...previousMessages,
           aiMessage,
         ]);
+
       })
+
       .catch((error) => {
+
         console.error("AI Error:", error);
 
         setMessages((previousMessages) => [
@@ -104,10 +181,15 @@ function App() {
               "Sorry, I could not connect to the AI server.",
           },
         ]);
+
       })
+
       .finally(() => {
+
         setLoading(false);
+
       });
+
   };
 
   // =========================
@@ -115,6 +197,7 @@ function App() {
   // =========================
 
   const askAI = async () => {
+
     if (!question.trim() || loading) {
       return;
     }
@@ -135,18 +218,21 @@ function App() {
     setLoading(true);
 
     try {
+
       const response = await fetch(
-  "https://somya-ai-portfolio-api.onrender.com/",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      message: userMessage,
-    }),
-  }
-);
+        `${API_URL}/chat`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            question: currentQuestion,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Server error");
@@ -163,7 +249,9 @@ function App() {
         ...previousMessages,
         aiMessage,
       ]);
+
     } catch (error) {
+
       console.error("AI Error:", error);
 
       setMessages((previousMessages) => [
@@ -174,21 +262,13 @@ function App() {
             "Sorry, I could not connect to the AI server.",
         },
       ]);
+
     } finally {
+
       setLoading(false);
+
     }
-  };
 
-  // =========================
-  // PROJECT TOGGLE
-  // =========================
-
-  const toggleProject = (projectNumber) => {
-    setExpandedProject((previousProject) =>
-      previousProject === projectNumber
-        ? null
-        : projectNumber
-    );
   };
 
   // =========================
@@ -196,6 +276,7 @@ function App() {
   // =========================
 
   return (
+
     <div className="portfolio">
 
       {/* =========================
@@ -216,25 +297,82 @@ function App() {
 
       <nav className="navbar">
 
-        <a href="#home" className="logo">
+        <a
+          href="#home"
+          className="logo"
+          onClick={() => setMenuOpen(false)}
+        >
           SK<span>.</span>
         </a>
 
-        <div className="nav-links">
 
-          <a href="#about">About</a>
+        {/* MOBILE HAMBURGER */}
 
-          <a href="#education">Education</a>
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          ☰
+        </button>
 
-          <a href="#achievements">Achievements</a>
 
-          <a href="#skills">Skills</a>
+        {/* NAV LINKS */}
 
-          <a href="#projects">Projects</a>
+        <div
+          className={`nav-links ${
+            menuOpen ? "nav-open" : ""
+          }`}
+        >
 
-          <a href="#experience">Experience</a>
+          <a
+            href="#about"
+            onClick={() => setMenuOpen(false)}
+          >
+            About
+          </a>
 
-          <a href="#contact">Contact</a>
+          <a
+            href="#education"
+            onClick={() => setMenuOpen(false)}
+          >
+            Education
+          </a>
+
+          <a
+            href="#achievements"
+            onClick={() => setMenuOpen(false)}
+          >
+            Achievements
+          </a>
+
+          <a
+            href="#skills"
+            onClick={() => setMenuOpen(false)}
+          >
+            Skills
+          </a>
+
+          <a
+            href="#projects"
+            onClick={() => setMenuOpen(false)}
+          >
+            Projects
+          </a>
+
+          <a
+            href="#experience"
+            onClick={() => setMenuOpen(false)}
+          >
+            Experience
+          </a>
+
+          <a
+            href="#contact"
+            onClick={() => setMenuOpen(false)}
+          >
+            Contact
+          </a>
 
         </div>
 
@@ -276,19 +414,24 @@ function App() {
           <div className="hero-buttons">
 
             <a href="#projects">
+
               <button>
                 View My Projects
               </button>
+
             </a>
+
 
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noreferrer"
             >
+
               <button className="secondary-button">
                 Resume ↗
               </button>
+
             </a>
 
           </div>
@@ -303,9 +446,10 @@ function App() {
       ========================= */}
 
       <section
-  id="about"
-  className="section about-section animate-on-scroll"
->
+        id="about"
+        className="section about-section animate-on-scroll"
+      >
+
         <div className="about-header">
 
           <p className="section-label">
@@ -367,9 +511,9 @@ function App() {
       ========================= */}
 
       <section
-  id="education"
-  className="section education-section animate-on-scroll"
->
+        id="education"
+        className="section education-section animate-on-scroll"
+      >
 
         <p className="section-label">
           EDUCATION
@@ -396,6 +540,7 @@ function App() {
             </p>
 
           </div>
+
 
           <div className="education-details">
 
@@ -439,105 +584,117 @@ function App() {
 
         <div className="certifications-grid">
 
-  {/* Certificate 1 */}
-  <div className="certificate-card animate-on-scroll">
+          {/* Certificate 1 */}
 
-    <div className="certificate-image">
-      <img
-        src="/certificates/ai-skills-passport.png"
-        alt="AI Skills Passport certificate"
-      />
-    </div>
+          <div className="certificate-card animate-on-scroll">
 
-    <div className="certificate-info">
+            <div className="certificate-image">
 
-      <p className="certificate-type">
-        CERTIFICATION
-      </p>
+              <img
+                src="/certificates/ai-skills-passport.png"
+                alt="AI Skills Passport certificate"
+              />
 
-      <h3>
-        AI Skills Passport
-      </h3>
-
-      <p>
-        EY × Microsoft
-      </p>
-
-      <span>
-        2026
-      </span>
-
-    </div>
-
-  </div>
+            </div>
 
 
-  {/* Certificate 2 */}
-  <div className="certificate-card animate-on-scroll">
+            <div className="certificate-info">
 
-    <div className="certificate-image">
-      <img
-        src="/certificates/green-skills-ai.png"
-        alt="Green Skills and Applied AI certificate"
-      />
-    </div>
+              <p className="certificate-type">
+                CERTIFICATION
+              </p>
 
-    <div className="certificate-info">
+              <h3>
+                AI Skills Passport
+              </h3>
 
-      <p className="certificate-type">
-        BOOTCAMP
-      </p>
+              <p>
+                EY × Microsoft
+              </p>
 
-      <h3>
-        Green Skills & Applied AI for Climate Action
-      </h3>
+              <span>
+                2026
+              </span>
 
-      <p>
-        Microsoft × 1M1B
-      </p>
+            </div>
 
-      <span>
-        2026
-      </span>
-
-    </div>
-
-  </div>
+          </div>
 
 
-  {/* Certificate 3 */}
-  <div className="certificate-card animate-on-scroll">
+          {/* Certificate 2 */}
 
-    <div className="certificate-image">
-      <img
-        src="/certificates/certificate-3.png"
-        alt="Certificate"
-      />
-    </div>
+          <div className="certificate-card animate-on-scroll">
 
-    <div className="certificate-info">
+            <div className="certificate-image">
 
-      <p className="certificate-type">
-        CERTIFICATION
-      </p>
+              <img
+                src="/certificates/green-skills-ai.png"
+                alt="Green Skills and Applied AI certificate"
+              />
 
-      <h3>
-        Your Certificate Name
-      </h3>
+            </div>
 
-      <p>
-        Issuing Organization
-      </p>
 
-      <span>
-        2026
-      </span>
+            <div className="certificate-info">
 
-    </div>
+              <p className="certificate-type">
+                BOOTCAMP
+              </p>
 
-  </div>
+              <h3>
+                Green Skills & Applied AI for Climate Action
+              </h3>
 
-</div>
+              <p>
+                Microsoft × 1M1B
+              </p>
+
+              <span>
+                2026
+              </span>
+
+            </div>
+
+          </div>
+
+
+          {/* Certificate 3 */}
+
+          <div className="certificate-card animate-on-scroll">
+
+            <div className="certificate-image">
+
+              <img
+                src="/certificates/certificate-3.png"
+                alt="Certificate"
+              />
+
+            </div>
+
+
+            <div className="certificate-info">
+
+              <p className="certificate-type">
+                CERTIFICATION
+              </p>
+
+              <h3>
+                Your Certificate Name
+              </h3>
+
+              <p>
+                Issuing Organization
+              </p>
+
+              <span>
+                2026
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </section>
 
@@ -547,9 +704,10 @@ function App() {
       ========================= */}
 
       <section
-  id="skills"
-  className="section skills-section animate-on-scroll"
->
+        id="skills"
+        className="section skills-section animate-on-scroll"
+      >
+
         <p className="section-label">
           TECHNOLOGIES
         </p>
@@ -701,7 +859,6 @@ function App() {
 
           </div>
 
-
         </div>
 
       </section>
@@ -712,9 +869,9 @@ function App() {
       ========================= */}
 
       <section
-  id="projects"
-  className="section projects-section animate-on-scroll"
->
+        id="projects"
+        className="section projects-section animate-on-scroll"
+      >
 
         <p className="section-label">
           PROJECTS
@@ -783,6 +940,7 @@ function App() {
               >
                 GitHub ↗
               </a>
+
 
               <button
                 className="project-button secondary"
@@ -916,6 +1074,7 @@ function App() {
                 GitHub ↗
               </a>
 
+
               <button
                 className="project-button secondary"
                 onClick={() => toggleProject(2)}
@@ -1048,6 +1207,7 @@ function App() {
                 GitHub ↗
               </a>
 
+
               <button
                 className="project-button secondary"
                 onClick={() => toggleProject(3)}
@@ -1127,7 +1287,6 @@ function App() {
 
           </article>
 
-
         </div>
 
       </section>
@@ -1138,9 +1297,9 @@ function App() {
       ========================= */}
 
       <section
-  id="experience"
-  className="section experience-section animate-on-scroll"
->
+        id="experience"
+        className="section experience-section animate-on-scroll"
+      >
 
         <p className="section-label">
           EXPERIENCE
@@ -1240,6 +1399,7 @@ function App() {
               >
                 ↻
               </button>
+
 
               <button
                 className="close-chat"
@@ -1380,6 +1540,11 @@ function App() {
 
             )}
 
+
+            {/* AUTO SCROLL TARGET */}
+
+            <div ref={messagesEndRef} />
+
           </div>
 
 
@@ -1403,6 +1568,7 @@ function App() {
               }}
             />
 
+
             <button
               onClick={askAI}
               disabled={loading}
@@ -1421,10 +1587,11 @@ function App() {
           CONTACT
       ========================= */}
 
-<section
-  id="contact"
-  className="section contact animate-on-scroll"
->
+      <section
+        id="contact"
+        className="section contact animate-on-scroll"
+      >
+
         <p className="section-label">
           CONTACT
         </p>
@@ -1491,7 +1658,9 @@ function App() {
       </footer>
 
     </div>
+
   );
+
 }
 
 export default App;

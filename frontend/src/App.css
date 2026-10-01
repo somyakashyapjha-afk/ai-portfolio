@@ -1939,3 +1939,134 @@ button {
   }
 
 }
+/* =========================================================
+   MOBILE HAMBURGER NAVIGATION
+   ========================================================= */
+
+/* Hamburger is hidden on desktop */
+.hamburger {
+  display: none;
+
+  background: transparent;
+  border: none;
+
+  color: #ffffff;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  padding: 4px 8px;
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .navbar {
+    position: sticky;
+
+    top: 0;
+
+    width: 100%;
+
+    padding: 18px 20px;
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 0;
+  }
+
+
+  /* Show hamburger */
+  .hamburger {
+    display: block;
+  }
+
+
+  /* Navigation menu */
+  .nav-links {
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 0;
+
+    padding: 0;
+
+    background: #080808;
+
+    border-bottom: 1px solid #292929;
+
+    overflow: hidden;
+
+    max-height: 0;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+      max-height 0.3s ease,
+      opacity 0.25s ease,
+      visibility 0.3s ease;
+  }
+
+
+  /* Open menu */
+  .nav-links.nav-open {
+    max-height: 500px;
+
+    padding: 15px 0;
+
+    opacity: 1;
+
+    visibility: visible;
+  }
+
+
+  /* Navigation links */
+  .nav-links a {
+    width: 100%;
+
+    padding: 13px 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    color: #bdbdbd;
+  }
+
+
+  .nav-links a:hover {
+    color: #8b5cf6;
+
+    background: #111111;
+  }
+
+
+  /* Remove desktop underline animation on mobile */
+  .nav-links a::after {
+    display: none;
+  }
+
+}
