@@ -1,24 +1,24 @@
 import json
 from pathlib import Path
 
+import chromadb
 from sentence_transformers import SentenceTransformer
-import numpy as np
 
 
-# -----------------------------------
-# 1. Paths
-# -----------------------------------
+# ============================================================
+# 1. PATHS
+# ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent
+
 KNOWLEDGE_BASE = BASE_DIR / "knowledge_base"
 
-OUTPUT_DIR = BASE_DIR / "embeddings"
-OUTPUT_DIR.mkdir(exist_ok=True)
+CHROMA_DIR = BASE_DIR / "chroma_db"
 
 
-# -----------------------------------
-# 2. Knowledge-base files
-# -----------------------------------
+# ============================================================
+# 2. KNOWLEDGE-BASE FILES
+# ============================================================
 
 files = [
     "profile.json",
@@ -30,37 +30,11 @@ files = [
 ]
 
 
-# -----------------------------------
-# 3. Load JSON data
-# -----------------------------------
-
-documents = []
-
-for filename in files:
-
-    file_path = KNOWLEDGE_BASE / filename
-
-    with open(file_path, "r", encoding="utf-8") as file:
-        data = json.load(file)
-
-    documents.append({
-        "source": filename,
-        "content": data
-    })
-
-
-print(f"Loaded {len(documents)} knowledge-base files.")
-
-
-# -----------------------------------
-# 4. Convert JSON → searchable text
-# -----------------------------------
+# ============================================================
+# 3. JSON → SEARCHABLE TEXT
+# ============================================================
 
 def json_to_text(data):
-    """
-    Recursively converts structured JSON
-    into readable text.
-    """
 
     if isinstance(data, dict):
 
@@ -88,82 +62,188 @@ def json_to_text(data):
         return str(data)
 
 
-texts = []
+# ============================================================
+# 4. LOAD KNOWLEDGE BASE
+# ============================================================
 
-metadata = []
+documents = []
+metadatas = []
 
+for filename in files:
 
-for document in documents:
+    file_path = KNOWLEDGE_BASE / filename
 
-    text = json_to_text(document["content"])
+    with open(
+        file_path,
+        "r",
+        encoding="utf-8"
+    ) as file:
 
-    texts.append(text)
+        data = json.load(file)
 
-    metadata.append({
-        "source": document["source"]
+    text = json_to_text(data)
+
+    documents.append(text)
+
+    # Determine category from filename
+    document_type = filename.replace(
+        ".json",
+        ""
+    )
+
+    metadatas.append({
+        "source": filename,
+        "type": document_type
     })
 
 
-# -----------------------------------
-# 5. Load embedding model
-# -----------------------------------
+print(
+    f"Loaded {len(documents)} knowledge-base files."
+)
 
-print("Loading embedding model...")
+
+# ============================================================
+# 5. PRINT DOCUMENTS FOR DEBUGGING
+# ============================================================
+
+print("\n==============================")
+print("KNOWLEDGE BASE DOCUMENTS")
+print("==============================")
+
+for i, document in enumerate(documents):
+
+    print(f"\nDocument {i + 1}:")
+    print(document)
+
+print("\n==============================\n")
+
+
+# ============================================================
+# 6. LOAD EMBEDDING MODEL
+# ============================================================
+
+print(
+    "Loading embedding model..."
+)
 
 model = SentenceTransformer(
     "all-MiniLM-L6-v2"
 )
 
 
-# -----------------------------------
-# 6. Generate embeddings
-# -----------------------------------
+# ============================================================
+# 7. GENERATE EMBEDDINGS
+# ============================================================
 
-print("Generating embeddings...")
+print(
+    "Generating embeddings..."
+)
 
 embeddings = model.encode(
-    texts,
+    documents,
     convert_to_numpy=True
 )
 
 
-# -----------------------------------
-# 7. Save embeddings
-# -----------------------------------
+# ============================================================
+# 8. CONNECT TO CHROMADB
+# ============================================================
 
-embedding_path = OUTPUT_DIR / "embeddings.npy"
+print(
+    "Connecting to ChromaDB..."
+)
 
-np.save(
-    embedding_path,
-    embeddings
+client = chromadb.PersistentClient(
+    path=str(CHROMA_DIR)
 )
 
 
-# -----------------------------------
-# 8. Save metadata
-# -----------------------------------
+# ============================================================
+# 9. RECREATE COLLECTION
+# ============================================================
 
-metadata_path = OUTPUT_DIR / "metadata.json"
+collection_name = "portfolio_knowledge"
 
-with open(
-    metadata_path,
-    "w",
-    encoding="utf-8"
-) as file:
+try:
 
-    json.dump(
-        metadata,
-        file,
-        indent=2
+    client.delete_collection(
+        name=collection_name
+    )
+
+    print(
+        "Existing collection deleted."
+    )
+
+except Exception:
+
+    print(
+        "No existing collection found."
     )
 
 
-# -----------------------------------
-# 9. Finished
-# -----------------------------------
+collection = client.create_collection(
+    name=collection_name
+)
+
+
+# ============================================================
+# 10. ADD DOCUMENTS TO CHROMADB
+# ============================================================
+
+print(
+    "Adding documents to ChromaDB..."
+)
+
+ids = [
+    f"document_{i}"
+    for i in range(len(documents))
+]
+
+
+collection.add(
+
+    ids=ids,
+
+    documents=documents,
+
+    embeddings=embeddings.tolist(),
+
+    metadatas=metadatas
+
+)
+
+
+# ============================================================
+# 11. VERIFY COLLECTION
+# ============================================================
 
 print()
-print("Embedding pipeline completed successfully!")
-print(f"Embeddings shape: {embeddings.shape}")
-print(f"Saved to: {embedding_path}")
-print(f"Metadata saved to: {metadata_path}")
+print(
+    f"ChromaDB collection contains "
+    f"{collection.count()} documents."
+)
+
+
+# ============================================================
+# 12. SHOW STORED DOCUMENTS
+# ============================================================
+
+print("\n==============================")
+print("CHROMADB VERIFICATION")
+print("==============================")
+
+stored = collection.get()
+
+for i, document in enumerate(
+    stored["documents"]
+):
+
+    print(f"\nDocument {i + 1}:")
+    print(document)
+
+print("\n==============================\n")
+
+
+print(
+    "Embedding + ChromaDB pipeline completed successfully!"
+)

@@ -1,3 +1,20 @@
 {
-  "experience": []
+  "experience": [
+    {
+      "role": "AI & Green Skills Intern",
+      "organization": "Microsoft × 1M1B",
+      "year": "2026",
+      "details": [
+        "Worked on applied AI and sustainability-focused projects.",
+        "Explored practical applications of artificial intelligence to real-world problems.",
+        "Developed technical and problem-solving skills through project-based work."
+      ],
+      "technologies": [
+        "Python",
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Analysis"
+      ]
+    }
+  ]
 }
